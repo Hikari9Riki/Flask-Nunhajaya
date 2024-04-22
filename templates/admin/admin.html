@@ -1,36 +1,37 @@
+<!-- admin.html -->
 {% extends "/admin/layout.html"%}
 {% include "/admin/navbar.html"%}
 
-{% block title %}Admin Page{%endblock%}
-{%block content%}
-<div class="homepage">
+{% block title %}Admin Page{% endblock %}
+{% block content %}
+
+<!-- Initialize with a default category visible (e.g., 'category1') -->
+<div id="category1" class="category">
     <h1>Hello, admin</h1>
 </div>
-<div class="product">
+<div id="category2" class="category" style="display: none;">
+    <h1>Product</h1>
     <ul>
         <div class="box">
-        {% for product in products%}
+        {% for product in products %}
             <div>
-                
-                <li> name: {{product.name}}</li>
-                <li> category: {{product.category}}</li>
-                <li> image: {{product.image}}</li>
-                <img src="{{ url_for('static', filename=product.image) }}" alt="" width="500" height="600">
-                <li> price: {{product.price}} </li>
-                <li> description: {{product.description}} </li>
-                <a class="btn primary btn" href="{{url_for('product_change', id=product.id)}}">change</a>
+                <li>Name: {{ product.name }}</li>
+                <li>Category: {{ product.category }}</li>
+                <li>Image: {{ product.image }}</li>
+                <img src="{{ url_for('static', filename=product.image) }}" class="img-fluid" alt="Responsive image">
+                <li>Price: {{ product.price }}</li>
+                <li>Description: {{ product.description }}</li>
+                <a class="btn primary btn" href="{{ url_for('product_change', id=product.id) }}">Change</a>
             </div>
         {% endfor %} 
-        <a class="btn primary btn" href="{{url_for('product_add')}}">add</a>
+        <a class="btn primary btn" href="{{ url_for('product_add') }}">Add</a>
         {%block form%}{%endblock%}
-        </div>   
+        </div>
     </ul>
-
-</div>
-<div class="profile">
-    <h1>Hello, admin</h1>
 </div>
 
+<div id="category3" class="category" style="display: none;">
+    <h1>Profile</h1>
+</div>
 
-{%endblock%}
-
+{% endblock %}

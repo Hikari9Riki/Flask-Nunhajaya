@@ -1,6 +1,6 @@
 import os
 import uuid
-from flask import render_template, request, url_for,redirect
+from flask import render_template, request, url_for,redirect, session
 from models import Admin,Catalog,Product
 from form import RegisterForm,LoginForm,ProductForm
 from werkzeug.utils import secure_filename
@@ -20,7 +20,8 @@ def register_routes(app,db):
 
     @app.route('/admin')
     def admin():
-        return render_template("/admin/admin.html")
+        products = Catalog.query.all()
+        return render_template("/admin/admin.html", products = products)
     
     @app.route('/admin/product', methods=['GET', 'POST'])
     def admin_product():
@@ -57,7 +58,6 @@ def register_routes(app,db):
         form.price.data = products.price
         form.image.data = products.image
         form.description.data = products.description
-
         
         return render_template('admin/product_change.html', form = form, id = id)
 
