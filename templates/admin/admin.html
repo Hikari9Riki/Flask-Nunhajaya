@@ -1,17 +1,35 @@
 {% extends "/admin/layout.html"%}
+{% include "/admin/navbar.html"%}
 
-<title>Admin Page</title>
-<header>{% include "/admin/navbar.html"%}</header>
+{% block title %}Admin Page{%endblock%}
 {%block content%}
-<section class="homepage">
+<div class="homepage">
     <h1>Hello, admin</h1>
-</section>
-<section class="product">
+</div>
+<div class="product">
+    <ul>
+        <div class="box">
+        {% for product in products%}
+            <div>
+                
+                <li> name: {{product.name}}</li>
+                <li> category: {{product.category}}</li>
+                <li> image: {{product.image}}</li>
+                <img src="{{ url_for('static', filename=product.image) }}" alt="" width="500" height="600">
+                <li> price: {{product.price}} </li>
+                <li> description: {{product.description}} </li>
+                <a class="btn primary btn" href="{{url_for('product_change', id=product.id)}}">change</a>
+            </div>
+        {% endfor %} 
+        <a class="btn primary btn" href="{{url_for('product_add')}}">add</a>
+        {%block form%}{%endblock%}
+        </div>   
+    </ul>
+
+</div>
+<div class="profile">
     <h1>Hello, admin</h1>
-</section>
-<section class="profile">
-    <h1>Hello, admin</h1>
-</section>
+</div>
 
 
 {%endblock%}

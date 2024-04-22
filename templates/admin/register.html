@@ -1,13 +1,17 @@
 {% extends "/admin/layout.html"%}
-<title>Sign Up Page</title>  
+
+{% block title %}Sign Up Page{%endblock%}
 
 {%block content%}
-    {% if name %}
-        <h1>Hello {{name}}</h1>
-        <h1>your email is {{email}} </h1>
-        <h1>your password is {{password}} </h1>
-    {%else%}
-        <form method="POST">
+    <ul>
+        {% for sudo in admin%}
+            <li> name: {{sudo.username}}, email: {{sudo.email}}, password: {{sudo.password}}, ID: {{sudo.id}} </li>
+            <a class="btn" href="{{url_for('product_change', id=sudo.id)}}">change</a>
+        {% endfor %}    
+    </ul>
+
+
+        <form action="{{ url_for('register')}}" method="POST">
             {{ form.hidden_tag() }}
             {{form.username.label(class="form-label")}}
             {{form.username(class="form-control")}}
@@ -21,5 +25,5 @@
             {{form.submit(class="btn btn-primary")}}
         </form>
         <a href="/admin/login ">Already Have A Acouunt</a>
-    {%endif%}
+
 {%endblock%}
